@@ -14,7 +14,10 @@ class SomeTest(unittest.TestCase):
 
     def test_pos_tagger(self):
         result = self.pos_tagger_obj.write_sentence_with_tags()
-        self.assertEqual(result, "gotcha")
+        word_list = result[0]
+        tag_list = result[1]
+        assert(word_list[0], " The fat brown cat went haywire")
+        assert(tag_list[0], ["DET","ADJ","ADJ","NOUN","VERB","NOUN"])
 
     def tearDown(self):
         super(SomeTest, self).tearDown()
