@@ -2,7 +2,7 @@
 import unittest
 
 
-class TestReuters(unittest.TestCase):
+class TestOhsuMed(unittest.TestCase):
 
     def setUp(self):
         print("Do all the setup work here")
