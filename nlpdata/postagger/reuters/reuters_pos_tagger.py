@@ -1,11 +1,11 @@
-from base_training_data_setup import BaseTrainingDataSetup
-from typing import dict
-import csv
+from nlpdata.base_training_data_setup import BaseTrainingDataSetup
+from typing import Dict
 
 
 """This is the reuters pos tagger class that stores transformed training data associated with
 the reuters dataset
 """
+
 
 class ReutersPosTagger(BaseTrainingDataSetup):
 
@@ -21,8 +21,8 @@ class ReutersPosTagger(BaseTrainingDataSetup):
        :returns:
            a dictionary containing the raw upstream data
     """
-    def retrieve_upstream_data(self) -> dict:
-       reuters_upstream_data = BaseTrainingDataSetup.retrieve_upstream_data(self.reuters_data, "r")
+    def retrieve_upstream_data(self) -> Dict:
+       reuters_upstream_data = BaseTrainingDataSetup.retrieve_upstream_data(self, "reuters")
        return reuters_upstream_data
 
 
@@ -34,10 +34,10 @@ class ReutersPosTagger(BaseTrainingDataSetup):
        :returns:
            a dictionary containing the transformed training data
     """
-    def transform_upstream_data(self)->dict:
+    def transform_upstream_data(self) -> Dict:
        raise NotImplementedError("You will need to add this method to transform the data sets")
 
-     """Now that the data is transformed into the format needed store it in an area to be consumed by ludwig
+    """Now that the data is transformed into the format needed store it in an area to be consumed by ludwig
      Args:
          self (ReutersPosTagger): A handle to the current class
      Returns:

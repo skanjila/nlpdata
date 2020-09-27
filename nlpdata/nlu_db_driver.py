@@ -9,8 +9,10 @@ from postagger.ohsumed.ohsu_med_pos_tagger import OhsuMedPosTagger
 from postagger.reuters.reuters_pos_tagger import ReutersPosTagger
 
 def main():
-  ohsu_pos_tagger = OhsuMedPosTagger()
+  ohsu_med_pos_tagger = OhsuMedPosTagger()
+  ohsu_data = ohsu_med_pos_tagger.retrieve_upstream_data()
   reuters_pos_tagger = ReutersPosTagger()
+  reuters_data = reuters_pos_tagger.retrieve_upstream_data()
   print("Hello Ludwig this is the natural language training data db")
 
 
