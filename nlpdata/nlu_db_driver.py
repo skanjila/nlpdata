@@ -5,10 +5,12 @@ for a data provider which includes:
 2) do any processing on that data which includes transforms to turn it into data in the form
 of needing to be embedded into the ludwig api
 2) represent the resultant data both as in memory dict as well as writing it out to the file system"""
-from nlpdata.postagger.ohsumed.ohsu_med_pos_tagger import OhsuMedPosTagger
-from nlpdata.postagger.reuters.reuters_pos_tagger import ReutersMedPosTagger
+from postagger.ohsumed.ohsu_med_pos_tagger import OhsuMedPosTagger
+from postagger.reuters.reuters_pos_tagger import ReutersPosTagger
 
 def main():
+  ohsu_pos_tagger = OhsuMedPosTagger()
+  reuters_pos_tagger = ReutersPosTagger()
   print("Hello Ludwig this is the natural language training data db")
 
 

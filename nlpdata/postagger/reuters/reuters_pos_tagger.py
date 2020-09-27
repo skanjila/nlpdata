@@ -3,11 +3,11 @@ from typing import dict
 import csv
 
 
-"""This is the abstract base class for setting up training data, each of the use
-cases will derive from this and implement the methods in this class
+"""This is the reuters pos tagger class that stores transformed training data associated with
+the reuters dataset
 """
 
-class OhsuMedPosTagger(BaseTrainingDataSetup):
+class ReutersPosTagger(BaseTrainingDataSetup):
 
     def __init__(self):
        print("Inside the constructor")
@@ -22,8 +22,8 @@ class OhsuMedPosTagger(BaseTrainingDataSetup):
            a dictionary containing the raw upstream data
     """
     def retrieve_upstream_data(self) -> dict:
-       ohsu_med_upstream_data = BaseTrainingDataSetup.retrieve_upstream_data(self.reuters_data, "r")
-       return ohsu_med_upstream_data
+       reuters_upstream_data = BaseTrainingDataSetup.retrieve_upstream_data(self.reuters_data, "r")
+       return reuters_upstream_data
 
 
 
@@ -44,4 +44,6 @@ class OhsuMedPosTagger(BaseTrainingDataSetup):
           the dictionary corresponding to the transformed training data"""
     def write_training_data(self):
        raise NotImplementedError("You will need to implement the method to write out the training data")
+
+
 
