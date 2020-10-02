@@ -10,3 +10,7 @@ Here are the use cases for which we want to generate data for:
 - Visual question answering
 - Time series forecasting
 - Multi task learning
+
+
+This framework uses poetry to run code as well as tests.
+To run tests or code see this link: https://python-poetry.org/docs/basic-usage/#project-setup
