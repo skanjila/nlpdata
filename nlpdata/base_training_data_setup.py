@@ -1,10 +1,8 @@
 import abc
-from typing import Dict
 import csv
 import os
 import yaml
 import pandas as pd
-from pathlib import Path
 
 """This is the abstract base class for setting up training data, each of the use
 cases will derive from this and implement the methods in this class
@@ -22,7 +20,7 @@ class BaseTrainingDataSetup(metaclass=abc.ABCMeta):
        :returns:
            a dictionary containing the raw upstream data
     """
-    def retrieve_upstream_data(self, data_file_type) -> pd.DataFrame:
+    def retrieve_upstream_data(self, data_file_type) -> csv.DictReader:
        initial_path = os.path.abspath(os.path.dirname(__file__))
        __config_file_path = os.path.join(initial_path, "../data/config/text_data.yaml")
        with open(__config_file_path) as config_file:
@@ -32,30 +30,28 @@ class BaseTrainingDataSetup(metaclass=abc.ABCMeta):
        dict_reader = csv.DictReader(open(data_file_path))
        if dict_reader is None:
           raise FileNotFoundError("The file " + data_file_path + " was not found, please retry with a valid file")
-       result_dict = {}
-       value_to_store = None
-       key_to_store = None
-       for row in dict_reader:
-           for key,value in row.items():
-               if key == "class":
-                   value_to_store = value
-               else:
-                   key_to_store = value
-                   result_dict[key_to_store] = value_to_store
-
-       return result_dict
+       return dict_reader
 
 
     """Transform the upstream data sources to the format needed by the downstream
        ludwig framework API
        args:
            self (ReutersPosTagger): A handle to the current class
+           dict_reader (csv.DictReader): a pointer to a dictionary that can be read
        :returns:
-           a dictionary containing the transformed training data
+           a pandas dataframe
     """
-    @abc.abstractmethod
-    def transform_upstream_data(self) -> Dict:
-       raise NotImplementedError("You will need to add this method to transform the data sets")
+    def transform_upstream_data(self, dict_reader: csv.DictReader) -> pd.DataFrame:
+        result_dict = {}
+        value_to_store = None
+        for row in dict_reader:
+            for key, value in row.items():
+                if key == "class":
+                    value_to_store = value
+                else:
+                    key_to_store = value
+                    result_dict[key_to_store] = value_to_store
+        return pd.DataFrame(list(result_dict.items()), columns=['text', 'class'])
 
     """Now that the data is transformed into the format needed store it in an area to be consumed by ludwig
      Args:

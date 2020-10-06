@@ -1,5 +1,7 @@
 from nlpdata.base_training_data_setup import BaseTrainingDataSetup
 from typing import Dict
+import csv
+import pandas as pd
 
 
 """This is the reuters pos tagger class that stores transformed training data associated with
@@ -28,14 +30,15 @@ class ReutersPosTagger(BaseTrainingDataSetup):
 
 
     """Transform the upstream data sources to the format needed by the downstream
-       ludwig framework API
-       args:
-           self (ReutersPosTagger): A handle to the current class
-       :returns:
-           a dictionary containing the transformed training data
+      ludwig framework API
+      args:
+          self (ReutersPosTagger): A handle to the current class
+          passed_in_dict_reader (csv.DictReader): A list of dictionaries
+      :returns:
+          a dictionary containing the transformed training data
     """
-    def transform_upstream_data(self) -> Dict:
-       raise NotImplementedError("You will need to add this method to transform the data sets")
+    def transform_upstream_data(self, passed_in_dict_reader: csv.DictReader) -> pd.DataFrame:
+      return BaseTrainingDataSetup.transform_upstream_data(self, passed_in_dict_reader)
 
     """Now that the data is transformed into the format needed store it in an area to be consumed by ludwig
      Args:
